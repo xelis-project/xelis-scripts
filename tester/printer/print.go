@@ -1,4 +1,4 @@
-package main
+package printer
 
 import (
 	"context"
@@ -8,22 +8,23 @@ import (
 )
 
 const (
-	redColor   = "\033[31m"
-	blueColor  = "\033[34m"
-	greenColor = "\033[32m"
-	resetColor = "\033[0m"
+	redColor    = "\033[31m"
+	greenColor  = "\033[32m"
+	yellowColor = "\033[33m"
+	blueColor   = "\033[34m"
+	resetColor  = "\033[0m"
 )
 
 func setColor(msg string, color string) string {
 	return fmt.Sprintf("%s%s%s", color, msg, resetColor)
 }
 
-func PrintError(err error) {
+func Error(err error) {
 	fmt.Fprintf(os.Stderr, "%s\n", setColor(err.Error(), redColor))
 }
 
-func FatalError(err error) {
-	PrintError(err)
+func Fatal(err error) {
+	Error(err)
 	os.Exit(1)
 }
 
@@ -31,11 +32,11 @@ func Print(msg string, args ...any) {
 	fmt.Printf(msg, args...)
 }
 
-func PrintSuccess(msg string, args ...any) {
+func Success(msg string, args ...any) {
 	fmt.Print(setColor(fmt.Sprintf(msg, args...), greenColor))
 }
 
-func PrintLoad(msg string, args ...any) context.CancelFunc {
+func Load(msg string, args ...any) context.CancelFunc {
 	ctx, cancel := context.WithCancel(context.Background())
 	done := make(chan bool, 1)
 

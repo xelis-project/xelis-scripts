@@ -1,6 +1,9 @@
-package main
+package stress
 
 import (
+	"tester/instance"
+	"tester/printer"
+
 	"github.com/google/uuid"
 	xelisConfig "github.com/xelis-project/xelis-go-sdk/config"
 	xelisWallet "github.com/xelis-project/xelis-go-sdk/wallet"
@@ -19,7 +22,7 @@ func BigTransfer(args BigTransferArgs) {
 		var err error
 		extra, err = uuid.NewRandom()
 		if err != nil {
-			FatalError(err)
+			printer.Fatal(err)
 		}
 
 		transfers = append(transfers, xelisWallet.TransferOut{
@@ -30,23 +33,23 @@ func BigTransfer(args BigTransferArgs) {
 		})
 	}
 
-	stopLoad := PrintLoad("Buidling")
-	tx, err := Wallet.BuildTransaction(xelisWallet.BuildTransactionParams{
+	stopLoad := printer.Load("Buidling")
+	tx, err := instance.Wallet.BuildTransaction(xelisWallet.BuildTransactionParams{
 		Transfers: transfers,
 		Broadcast: false,
 		TxAsHex:   true,
 	})
 	stopLoad()
 	if err != nil {
-		FatalError(err)
+		printer.Fatal(err)
 	}
 
-	stopLoad = PrintLoad("Submitting")
-	_, err = Daemon.SubmitTransaction(tx.TxAsHex)
+	stopLoad = printer.Load("Submitting")
+	_, err = instance.Daemon.SubmitTransaction(tx.TxAsHex)
 	stopLoad()
 	if err != nil {
-		FatalError(err)
+		printer.Fatal(err)
 	}
 
-	PrintSuccess("New transaction sent %s to %s\n", tx.Hash, args.Destination)
+	printer.Success("New transaction sent %s to %s\n", tx.Hash, args.Destination)
 }

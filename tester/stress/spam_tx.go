@@ -1,9 +1,11 @@
-package main
+package stress
 
 import (
 	"math/rand"
 	"os"
 	"os/signal"
+	"tester/instance"
+	"tester/printer"
 	"time"
 
 	"github.com/google/uuid"
@@ -22,9 +24,9 @@ type SpamArgs struct {
 func SpamTx(args SpamArgs) {
 	sleep := time.Duration(args.Timeout) * time.Second
 
-	addrs, err := Daemon.GetAccounts(xelisDaemon.GetAccountsParams{Skip: 0, Maximum: 20})
+	addrs, err := instance.Daemon.GetAccounts(xelisDaemon.GetAccountsParams{Skip: 0, Maximum: 20})
 	if err != nil {
-		FatalError(err)
+		printer.Fatal(err)
 	}
 
 	c := make(chan os.Signal, 1)
@@ -35,13 +37,13 @@ out:
 		case <-c:
 			break out
 		default:
-			stopLoad := PrintLoad("Buidling")
+			stopLoad := printer.Load("Buidling")
 
 			var extra interface{}
 			var err error
 			extra, err = uuid.NewRandom()
 			if err != nil {
-				FatalError(err)
+				printer.Fatal(err)
 			}
 
 			destination := args.Destination
@@ -49,10 +51,10 @@ out:
 				destination = addrs[rand.Intn(len(addrs))]
 			}
 
-			tx, err := Wallet.BuildTransaction(xelisWallet.BuildTransactionParams{
+			tx, err := instance.Wallet.BuildTransaction(xelisWallet.BuildTransactionParams{
 				Broadcast: true,
 				Transfers: []xelisWallet.TransferOut{
-					xelisWallet.TransferOut{
+					{
 						Amount:      args.Amount,
 						Asset:       xelisConfig.XELIS_ASSET,
 						Destination: destination,
@@ -62,9 +64,9 @@ out:
 			})
 			stopLoad()
 			if err != nil {
-				PrintError(err)
+				printer.Error(err)
 			} else {
-				PrintSuccess("New transaction sent %s to %s\n", tx.Hash, destination)
+				printer.Success("New transaction sent %s to %s\n", tx.Hash, destination)
 			}
 
 			time.Sleep(sleep)
