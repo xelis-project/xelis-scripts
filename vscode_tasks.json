@@ -19,22 +19,22 @@
     {
       "label": "Wallet 2",
       "type": "shell",
-      "command": "cargo run --bin xelis_wallet --release -- --network dev --wallet-path ./wallets/dev_2 --password test --rpc-username test --rpc-password test --rpc-bind-address 127.0.0.1:8081 --precomputed-tables-l1 24 --seed 'pistons owls aphid trash unbending cuisine else nimbly toenail bikini ostrich light atrium nostril myth bicycle sabotage bimonthly shelter nobody assorted bamboo envy fazed toenail'"
+      "command": "cargo run --bin xelis_wallet --release -- --network dev --wallet-path ./wallets/dev_2 --password test --rpc-username test --rpc-password test --rpc-bind-address 127.0.0.1:8082 --precomputed-tables-l1 24 --seed 'pistons owls aphid trash unbending cuisine else nimbly toenail bikini ostrich light atrium nostril myth bicycle sabotage bimonthly shelter nobody assorted bamboo envy fazed toenail'"
     },
     {
       "label": "Wallet 3",
       "type": "shell",
-      "command": "cargo run --bin xelis_wallet --release -- --network dev --wallet-path ./wallets/dev_3 --password test --rpc-username test --rpc-password test --rpc-bind-address 127.0.0.1:8081 --precomputed-tables-l1 24 --seed 'vein goodbye thorn dotted boat roster shrugged mechanic attire payment slower hornet quote foiled governing yields cunning azure older trolling tadpoles network industrial jaded dotted'"
+      "command": "cargo run --bin xelis_wallet --release -- --network dev --wallet-path ./wallets/dev_3 --password test --rpc-username test --rpc-password test --rpc-bind-address 127.0.0.1:8083 --precomputed-tables-l1 24 --seed 'vein goodbye thorn dotted boat roster shrugged mechanic attire payment slower hornet quote foiled governing yields cunning azure older trolling tadpoles network industrial jaded dotted'"
     },
     {
       "label": "Wallet 4",
       "type": "shell",
-      "command": "cargo run --bin xelis_wallet --release -- --network dev --wallet-path ./wallets/dev_4 --password test --rpc-username test --rpc-password test --rpc-bind-address 127.0.0.1:8081 --precomputed-tables-l1 24 --seed 'popular tidy igloo archer paradise agnostic wounded intended ailments darted hawk hemlock glass neither awful factual ingested lexicon urban ashtray toffee afloat sipped sober toffee'"
+      "command": "cargo run --bin xelis_wallet --release -- --network dev --wallet-path ./wallets/dev_4 --password test --rpc-username test --rpc-password test --rpc-bind-address 127.0.0.1:8084 --precomputed-tables-l1 24 --seed 'popular tidy igloo archer paradise agnostic wounded intended ailments darted hawk hemlock glass neither awful factual ingested lexicon urban ashtray toffee afloat sipped sober toffee'"
     },
     {
       "label": "Wallet 5",
       "type": "shell",
-      "command": "cargo run --bin xelis_wallet --release -- --network dev --wallet-path ./wallets/dev_5 --password test --rpc-username test --rpc-password test --rpc-bind-address 127.0.0.1:8081 --precomputed-tables-l1 24 --seed 'feel ocean rockets gills luxury amaze tacit stellar sphere idiom tiers sickness inexact abducts molten petals upkeep nocturnal cavernous sprig unveil dozen pockets railway molten'"
+      "command": "cargo run --bin xelis_wallet --release -- --network dev --wallet-path ./wallets/dev_5 --password test --rpc-username test --rpc-password test --rpc-bind-address 127.0.0.1:8085 --precomputed-tables-l1 24 --seed 'feel ocean rockets gills luxury amaze tacit stellar sphere idiom tiers sickness inexact abducts molten petals upkeep nocturnal cavernous sprig unveil dozen pockets railway molten'"
     },
     {
       "label": "Start XELIS tasks",
