@@ -53,7 +53,7 @@ out:
 
 			tx, err := instance.Wallet.BuildTransaction(xelisWallet.BuildTransactionParams{
 				Broadcast: true,
-				Transfers: []xelisWallet.TransferOut{
+				Transfers: []xelisWallet.TransferBuilder{
 					{
 						Amount:      args.Amount,
 						Asset:       xelisConfig.XELIS_ASSET,

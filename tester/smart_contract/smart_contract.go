@@ -6,6 +6,7 @@ import (
 
 	xelisConfig "github.com/xelis-project/xelis-go-sdk/config"
 	"github.com/xelis-project/xelis-go-sdk/daemon"
+	"github.com/xelis-project/xelis-go-sdk/sc_constant"
 	xelisWallet "github.com/xelis-project/xelis-go-sdk/wallet"
 )
 
@@ -35,7 +36,7 @@ func DepositFunds(contract string) {
 			Contract:   contract,
 			MaxGas:     1000,
 			ChunkId:    0,
-			Parameters: []interface{}{},
+			Parameters: []sc_constant.Constant{},
 			Deposits: map[string]xelisWallet.ContractDepositBuilder{
 				xelisConfig.XELIS_ASSET: {
 					Amount:  1,

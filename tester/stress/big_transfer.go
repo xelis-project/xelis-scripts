@@ -15,7 +15,7 @@ type BigTransferArgs struct {
 }
 
 func BigTransfer(args BigTransferArgs) {
-	var transfers []xelisWallet.TransferOut
+	var transfers []xelisWallet.TransferBuilder
 
 	for i := 0; i < args.MaxTransfers; i++ {
 		var extra interface{}
@@ -25,7 +25,7 @@ func BigTransfer(args BigTransferArgs) {
 			printer.Fatal(err)
 		}
 
-		transfers = append(transfers, xelisWallet.TransferOut{
+		transfers = append(transfers, xelisWallet.TransferBuilder{
 			Amount:      0,
 			Destination: args.Destination,
 			Asset:       xelisConfig.XELIS_ASSET,
@@ -45,7 +45,7 @@ func BigTransfer(args BigTransferArgs) {
 	}
 
 	stopLoad = printer.Load("Submitting")
-	_, err = instance.Daemon.SubmitTransaction(tx.TxAsHex)
+	_, err = instance.Daemon.SubmitTransaction(*tx.TxAsHex)
 	stopLoad()
 	if err != nil {
 		printer.Fatal(err)

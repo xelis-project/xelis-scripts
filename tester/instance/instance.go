@@ -1,7 +1,6 @@
 package instance
 
 import (
-	"context"
 	"flag"
 	"tester/printer"
 
@@ -31,7 +30,7 @@ func SetDaemonWalletFlags(flagCmd *flag.FlagSet) {
 
 func ConnectDaemon() {
 	var err error
-	Daemon, err = xelisDaemon.NewRPC(context.Background(), *flagDaemonEndpoint)
+	Daemon, err = xelisDaemon.NewRPC(*flagDaemonEndpoint)
 	if err != nil {
 		printer.Fatal(err)
 	}
@@ -39,7 +38,7 @@ func ConnectDaemon() {
 
 func ConnectWallet() {
 	var err error
-	Wallet, err = xelisWallet.NewRPC(context.Background(), *flagWalletEndpoint, *flagUsername, *flagPassword)
+	Wallet, err = xelisWallet.NewRPC(*flagWalletEndpoint, *flagUsername, *flagPassword)
 	if err != nil {
 		printer.Fatal(err)
 	}
