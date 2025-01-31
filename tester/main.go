@@ -68,12 +68,13 @@ func main() {
 		flagDestination := flagCmd.String("d", "", "destination")
 		flagMaxTransfers := flagCmd.Int("m", 255, "max total transfers")
 		flagRandAddr := flagCmd.Bool("r", false, "use random addr")
+		flagTxCount := flagCmd.Int("c", 1, "tx count")
 		initDaemonAndWallet(flagCmd)
 
 		destination := *flagDestination
 		maxTransfers := *flagMaxTransfers
 		randAddr := *flagRandAddr
-
+		txCount := *flagTxCount
 		if randAddr {
 			addrs, err := instance.Daemon.GetAccounts(xelisDaemon.GetAccountsParams{})
 			if err != nil {
@@ -91,6 +92,7 @@ func main() {
 		stress.BigTransfer(stress.BigTransferArgs{
 			Destination:  destination,
 			MaxTransfers: maxTransfers,
+			TxCount:      txCount,
 		})
 	case "sc_install_helloworld":
 		flagCmd := flag.NewFlagSet("sc_install", flag.ExitOnError)

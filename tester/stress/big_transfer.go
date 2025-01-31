@@ -12,6 +12,7 @@ import (
 type BigTransferArgs struct {
 	MaxTransfers int
 	Destination  string
+	TxCount      int
 }
 
 func BigTransfer(args BigTransferArgs) {
@@ -33,23 +34,34 @@ func BigTransfer(args BigTransferArgs) {
 		})
 	}
 
-	stopLoad := printer.Load("Buidling")
-	tx, err := instance.Wallet.BuildTransaction(xelisWallet.BuildTransactionParams{
-		Transfers: transfers,
-		Broadcast: false,
-		TxAsHex:   true,
-	})
-	stopLoad()
-	if err != nil {
-		printer.Fatal(err)
-	}
+	var txs []xelisWallet.TransactionResponse
 
-	stopLoad = printer.Load("Submitting")
-	_, err = instance.Daemon.SubmitTransaction(*tx.TxAsHex)
-	stopLoad()
-	if err != nil {
-		printer.Fatal(err)
+	stopLoad := printer.Load("Buidling txs (%d)", args.TxCount)
+	for i := 0; i < args.TxCount; i++ {
+		tx, err := instance.Wallet.BuildTransaction(xelisWallet.BuildTransactionParams{
+			Transfers: transfers,
+			Broadcast: false,
+			TxAsHex:   true,
+		})
+		if err != nil {
+			printer.Fatal(err)
+			stopLoad()
+			return
+		}
+		txs = append(txs, tx)
 	}
+	stopLoad()
 
-	printer.Success("New transaction sent %s to %s\n", tx.Hash, args.Destination)
+	stopLoad = printer.Load("Submitting txs (%d)", args.TxCount)
+	for _, tx := range txs {
+		_, err := instance.Daemon.SubmitTransaction(*tx.TxAsHex)
+		if err != nil {
+			printer.Fatal(err)
+			stopLoad()
+			return
+		}
+
+		printer.Success("New tx sent %s\n", tx.Hash)
+	}
+	stopLoad()
 }
